@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const url = new URL("https://courses.ianapplebaum.com/api/syllabus/1");
   
     const headers = {
-      "Authorization": "Bearer eIGqgatYQzkNIksq6GHXpCPbG0Ra1M2JkXKSJStb", // Replace with your actual token
+      "Authorization": "Bearer eIGqgatYQzkNIksq6GHXpCPbG0Ra1M2JkXKSJStb", 
       "Content-Type": "application/json",
       "Accept": "application/json",
     };
@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       return response.json();
     })
     .then(data => {
-      // Retrieve the array of events
+      
       const eventsArray = data.events || [];
       
-      // Sort the events by date
+      
       eventsArray.sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
   
       if (Array.isArray(eventsArray)) {
