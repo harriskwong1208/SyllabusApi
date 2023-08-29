@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const url = new URL("https://courses.ianapplebaum.com/api/syllabus/1");
   
     const headers = {
-      "Authorization": "Bearer eIGqgatYQzkNIksq6GHXpCPbG0Ra1M2JkXKSJStb", 
+      "Authorization": "Bearer YOUR_AUTH_KEY", 
       "Content-Type": "application/json",
       "Accept": "application/json",
     };
