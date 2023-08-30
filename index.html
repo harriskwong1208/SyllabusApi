@@ -19,6 +19,14 @@
 
     <title>SyllabusPage</title>
     <script defer src="data.js"></script>
+
+    <style>
+      body.night-mode {
+          background-color: #333;
+          color: #fff;
+      }
+
+  </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
@@ -26,6 +34,7 @@
         <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <button class="btn btn-outline-light ml-2" id="nightModeButton">Night Mode</button>
   
         <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
@@ -72,5 +81,13 @@
         </div>
 
       </main>
+      <script>
+        const nightModeButton = document.getElementById("nightModeButton");
+        const body = document.body;
+
+        nightModeButton.addEventListener("click", () => {
+            body.classList.toggle("night-mode");
+        });
+    </script>
 </body>
 </html>
