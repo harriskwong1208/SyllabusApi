@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function updateEventBackgroundColor(pItem, eventDate, checkBox) {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // 设置时间为当天的开始时间，确保整天比较
+  today.setHours(0, 0, 0, 0); // Set time to the beginning of the day to ensure accurate comparison
   const oneWeekFromNow = new Date(today);
   oneWeekFromNow.setDate(today.getDate() + 7);
 
@@ -66,9 +66,8 @@ function updateEventBackgroundColor(pItem, eventDate, checkBox) {
     pItem.style.backgroundColor = 'white';
   } else if (bgColor === 'lightyellow') {
     pItem.style.backgroundColor = 'lightgreen'
+    pItem.innerHTML = '<strong class="d-block text-gray-dark">Past Due</strong> ' + pItem.innerHTML;
   } else {
     pItem.style.backgroundColor = 'lightyellow'
   }
 }
-
-
