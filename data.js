@@ -34,10 +34,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
           const eventDate = new Date(eventItem.event_date);
 
           const pItem = document.createElement('div');
-          pItem.classList.add('event-item');
+          pItem.classList.add('event-item', 'rounded', 'user-select-none', 'p-2', 'border');
+
+          const tags = document.createElement('div');
+          tags.classList.add('d-flex', 'justify-content-between')
+
+          const overdueTag = document.createElement('p');
+          if (isOverdue(eventDate)) {
+            overdueTag.innerHTML = '<strong class="text-danger">Past Due</strong>'
+          }
+          overdueTag.classList.add('m-0', 'p-0')
+          tags.appendChild(overdueTag);
+
+          const statusTag = document.createElement('p');
+          statusTag.innerHTML = '<strong class="text-primary">Not Started</strong>'
+          statusTag.classList.add('m-0', 'p-0')
+          tags.appendChild(statusTag);
+          pItem.appendChild(tags);
 
           pItem.addEventListener('click', function() {
-            updateEventBackgroundColor(pItem, eventDate, pItem);
+            updateEventBackgroundColor(pItem, statusTag);
           });
 
           const eventDescription = document.createElement('p');
@@ -55,19 +71,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-function updateEventBackgroundColor(pItem, eventDate, checkBox) {
+function updateEventBackgroundColor(pItem, statusTag) {
+  const bgColor = pItem.style.backgroundColor
+  if(bgColor === 'lightgreen') {
+    pItem.style.backgroundColor = 'white';
+    statusTag.innerHTML = '<strong class="text-primary">Not Started</strong>'
+  } else if (bgColor === 'lightyellow') {
+    pItem.style.backgroundColor = 'lightgreen'
+    statusTag.innerHTML = '<strong class="text-gray-dark">Completed</strong>'
+  } else {
+    pItem.style.backgroundColor = 'lightyellow'
+    statusTag.innerHTML = '<strong class="text-gray-dark">In Progress</strong>'
+  }
+}
+
+function isOverdue(eventDate) {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set time to the beginning of the day to ensure accurate comparison
   const oneWeekFromNow = new Date(today);
   oneWeekFromNow.setDate(today.getDate() + 7);
 
-  const bgColor = pItem.style.backgroundColor
-  if(bgColor === 'lightgreen') {
-    pItem.style.backgroundColor = 'white';
-  } else if (bgColor === 'lightyellow') {
-    pItem.style.backgroundColor = 'lightgreen'
-    pItem.innerHTML = '<strong class="d-block text-gray-dark">Past Due</strong> ' + pItem.innerHTML;
-  } else {
-    pItem.style.backgroundColor = 'lightyellow'
+  if(eventDate <= today) {
+    return true;
   }
+  return false;
 }
