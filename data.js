@@ -36,22 +36,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
           const pItem = document.createElement('div');
           pItem.classList.add('event-item');
 
-          const checkBox = document.createElement('input');
-          checkBox.type = 'checkbox';
-
-          checkBox.addEventListener('change', function() {
-            updateEventBackgroundColor(pItem, eventDate, checkBox);
+          pItem.addEventListener('click', function() {
+            updateEventBackgroundColor(pItem, eventDate, pItem);
           });
-
-          pItem.appendChild(checkBox);
 
           const eventDescription = document.createElement('p');
           eventDescription.innerHTML = `<strong class="d-block text-gray-dark">${eventItem.event_name || ''} <small>(${eventItem.event_date || ''})</small></strong> ${eventItem.event_description || ''}`;
           pItem.appendChild(eventDescription);
 
           container.appendChild(pItem);
-
-          updateEventBackgroundColor(pItem, eventDate, checkBox);
         });
       } else {
         console.error('eventsArray is not an array:', eventsArray);
@@ -68,14 +61,13 @@ function updateEventBackgroundColor(pItem, eventDate, checkBox) {
   const oneWeekFromNow = new Date(today);
   oneWeekFromNow.setDate(today.getDate() + 7);
 
-  if (checkBox.checked) {
-    pItem.style.backgroundColor = 'lightgreen';
-  } else if (eventDate > today && eventDate <= oneWeekFromNow) {
-    pItem.style.backgroundColor = 'lightyellow';
-  } else if (eventDate <= today) {
-    pItem.style.backgroundColor = 'red';
+  const bgColor = pItem.style.backgroundColor
+  if(bgColor === 'lightgreen') {
+    pItem.style.backgroundColor = 'white';
+  } else if (bgColor === 'lightyellow') {
+    pItem.style.backgroundColor = 'lightgreen'
   } else {
-    pItem.style.backgroundColor = ''; // 其他情况无背景颜色
+    pItem.style.backgroundColor = 'lightyellow'
   }
 }
 
